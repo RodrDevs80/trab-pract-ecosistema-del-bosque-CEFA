@@ -82,15 +82,6 @@ El sitio fue desarrollado como parte de un trabajo de investigación escolar y c
 Centro Experimental Florentino Ameghino – 6° grado “A”  
 _Ciencias Naturales_
 
----
-
-## 📸 Vista previa (opcional)
-
-> Podés agregar una captura de pantalla del sitio en funcionamiento para mostrar el diseño.  
-> Recomendación: tomar una imagen de la sección principal y otra de las tarjetas de tipos de bosque.
-
----
-
 ## 📄 Licencia
 
 Este proyecto fue creado con fines educativos. Si deseás reutilizarlo o adaptarlo, recordá dar el crédito correspondiente a sus autores originales.
