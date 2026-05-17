@@ -1,0 +1,709 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>Bosques Vivos | Ecosistemas Esenciales</title>
+  <!-- Font Awesome 6 (free icons) -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <!-- Google Fonts: Inter + sistema moderno -->
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&display=swap"
+    rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+      background: #f6f9f2;
+      color: #1e2a1f;
+      line-height: 1.5;
+      scroll-behavior: smooth;
+    }
+
+    /* variables suaves */
+    :root {
+      --verde-profundo: #1f4f2b;
+      --verde-bosque: #2c6e3c;
+      --verde-claro: #e6f0e3;
+      --tierra: #d9c5a7;
+      --sombra: 0 15px 30px -12px rgba(0, 0, 0, 0.1);
+      --card-radius: 1.5rem;
+    }
+
+    /* container */
+    .container {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+    }
+
+    /* header / navegación */
+    .navbar {
+      background: rgba(31, 79, 43, 0.92);
+      backdrop-filter: blur(12px);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      padding: 0.9rem 1.5rem;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 1.5rem;
+      align-items: center;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    }
+
+    .navbar a {
+      color: white;
+      text-decoration: none;
+      font-weight: 500;
+      transition: 0.2s ease;
+      font-size: 0.95rem;
+      padding: 0.4rem 0;
+      letter-spacing: -0.2px;
+    }
+
+    .navbar a:hover {
+      color: #f5e7a7;
+      transform: translateY(-2px);
+    }
+
+    /* hero */
+    .hero {
+      background: linear-gradient(120deg, #1b3b24 0%, #2c6e3c 100%);
+      color: white;
+      padding: 3.5rem 1.5rem 4rem;
+      text-align: center;
+      border-radius: 0 0 2rem 2rem;
+      margin-bottom: 2rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::after {
+      content: "🌲🌳";
+      font-size: 180px;
+      opacity: 0.08;
+      position: absolute;
+      bottom: -20px;
+      right: -20px;
+      pointer-events: none;
+    }
+
+    .hero h1 {
+      font-size: 2.5rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      margin-bottom: 1rem;
+    }
+
+    .hero p {
+      font-size: 1.2rem;
+      max-width: 700px;
+      margin: 0 auto;
+      opacity: 0.9;
+    }
+
+    /* Secciones generales */
+    section {
+      margin: 4rem 0;
+    }
+
+    .section-title {
+      font-size: 1.9rem;
+      font-weight: 700;
+      margin-bottom: 2rem;
+      position: relative;
+      display: inline-block;
+      letter-spacing: -0.01em;
+      background: linear-gradient(135deg, #1f4f2b, #3b8b4a);
+      background-clip: text;
+      -webkit-background-clip: text;
+      color: transparent;
+      border-left: 5px solid #2c6e3c;
+      padding-left: 1rem;
+    }
+
+    /* Tarjetas animadas / efecto fade-up */
+    .card-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 2rem;
+    }
+
+    .feature-card,
+    .forest-card,
+    .importance-card {
+      background: white;
+      border-radius: var(--card-radius);
+      padding: 1.5rem;
+      box-shadow: var(--sombra);
+      transition: all 0.3s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity 0.6s ease, transform 0.5s ease, box-shadow 0.2s;
+    }
+
+    .feature-card.visible,
+    .forest-card.visible,
+    .importance-card.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .feature-card:hover,
+    .forest-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 25px 35px -12px rgba(0, 0, 0, 0.2);
+    }
+
+    /* características */
+    .features-wrapper {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+    }
+
+    .feature-card i {
+      font-size: 2.2rem;
+      color: #2c6e3c;
+      margin-bottom: 1rem;
+    }
+
+    .feature-card h3 {
+      font-size: 1.4rem;
+      margin-bottom: 0.6rem;
+    }
+
+    /* Cards de tipos de bosque */
+    .forest-card img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      border-radius: 1rem;
+      margin-bottom: 1.2rem;
+      transition: transform 0.4s;
+    }
+
+    .forest-card:hover img {
+      transform: scale(1.02);
+    }
+
+    .forest-card h3 {
+      font-size: 1.6rem;
+      margin-bottom: 0.5rem;
+      color: #1f4f2b;
+    }
+
+    .forest-badge {
+      display: inline-block;
+      background: #eef5e9;
+      border-radius: 50px;
+      padding: 0.3rem 1rem;
+      font-size: 0.75rem;
+      font-weight: 600;
+      margin-bottom: 1rem;
+      color: #1f4f2b;
+    }
+
+    .info-list {
+      list-style: none;
+      margin-top: 1rem;
+    }
+
+    .info-list li {
+      margin-bottom: 0.75rem;
+      display: flex;
+      gap: 0.7rem;
+      font-size: 0.95rem;
+    }
+
+    .info-list li i {
+      width: 1.4rem;
+      color: #3b8b4a;
+      font-size: 1.1rem;
+      margin-top: 0.15rem;
+    }
+
+    /* Importancia grid */
+    .importance-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1.2rem;
+    }
+
+    .importance-card {
+      display: flex;
+      gap: 1rem;
+      align-items: center;
+      background: white;
+    }
+
+    .importance-card i {
+      font-size: 2rem;
+      color: #2c6e3c;
+      min-width: 50px;
+      text-align: center;
+    }
+
+    .importance-card div h4 {
+      font-size: 1.2rem;
+      margin-bottom: 0.3rem;
+    }
+
+    /* ubicación extra */
+    .location-info {
+      background: #e2ecd9;
+      border-radius: 1.5rem;
+      padding: 1.8rem;
+      margin-top: 1rem;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .countries-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      font-weight: 500;
+    }
+
+    .countries-list span {
+      background: white;
+      padding: 0.3rem 1rem;
+      border-radius: 40px;
+      font-size: 0.9rem;
+    }
+
+    /* footer */
+    footer {
+      background: #0f2a16;
+      color: #cbdcc2;
+      text-align: center;
+      padding: 2rem;
+      margin-top: 3rem;
+      border-radius: 2rem 2rem 0 0;
+    }
+
+    /* botón scroll top */
+    .scroll-top {
+      position: fixed;
+      bottom: 1.5rem;
+      right: 1.2rem;
+      background: #1f4f2b;
+      color: white;
+      border: none;
+      border-radius: 60px;
+      width: 48px;
+      height: 48px;
+      font-size: 1.4rem;
+      cursor: pointer;
+      box-shadow: 0 5px 12px rgba(0, 0, 0, 0.2);
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.2s;
+      z-index: 99;
+    }
+
+    .scroll-top.show {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .scroll-top:hover {
+      background: #2c6e3c;
+      transform: scale(1.05);
+    }
+
+    /* responsive tablet y desktop */
+    @media (min-width: 768px) {
+
+      .card-grid,
+      .features-wrapper,
+      .importance-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .hero h1 {
+        font-size: 3.2rem;
+      }
+
+      .navbar {
+        justify-content: flex-end;
+        gap: 2rem;
+        padding-right: 2rem;
+        padding-left: 2rem;
+      }
+    }
+
+    @media (min-width: 1024px) {
+      .card-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+
+      .features-wrapper {
+        grid-template-columns: repeat(4, 1fr);
+      }
+
+      .importance-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .container {
+        padding: 0 2rem;
+      }
+    }
+
+    /* botón sutil */
+    .btn-nature {
+      display: inline-block;
+      background: #1f4f2b;
+      color: white;
+      border-radius: 60px;
+      padding: 0.6rem 1.4rem;
+      font-size: 0.9rem;
+      font-weight: 500;
+      text-decoration: none;
+      margin-top: 0.5rem;
+      transition: 0.2s;
+    }
+
+    .btn-nature:hover {
+      background: #2e7940;
+      transform: scale(0.98);
+    }
+
+    hr {
+      margin: 1rem 0;
+      border-color: #d0e2c4;
+    }
+  </style>
+</head>
+
+<body>
+
+  <nav class="navbar">
+    <a href="#inicio"><i class="fas fa-tree"></i> Inicio</a>
+    <a href="#caracteristicas"><i class="fas fa-chart-line"></i> Características</a>
+    <a href="#tipos"><i class="fas fa-globe-americas"></i> Tipos de bosque</a>
+    <a href="#importancia"><i class="fas fa-heart"></i> Importancia</a>
+  </nav>
+
+  <main>
+    <!-- Hero / inicio -->
+    <div id="inicio" class="hero">
+      <div class="container">
+        <h1>🌿Trabajo de investigación: Ecosistema del bosque</h1>
+        <p>Alumnos:
+          Lara Abigail Rodríguez Allende - Santino Ezequiel Ybalo</p>
+        <p>6 grado A</p>
+      </div>
+    </div>
+
+    <div class="container">
+      <!-- ¿Qué es un bosque? -->
+      <section>
+        <h2 class="section-title">🌳 ¿Qué es un Bosque?</h2>
+        <div style="background: white; border-radius: 1.5rem; padding: 2rem; box-shadow: var(--sombra);">
+          <p style="font-size: 1.1rem; margin-bottom: 1rem;">Un <strong>bosque</strong> es un ecosistema terrestre
+            dominado por árboles y arbustos, con interacciones complejas entre fauna, suelo, agua y atmósfera. Cubren
+            aproximadamente <strong>un tercio de la superficie terrestre</strong> y son esenciales para la vida en la
+            Tierra.</p>
+          <div style="display: flex; flex-wrap: wrap; gap: 1.5rem; justify-content: space-between; margin-top: 1.2rem;">
+            <div><i class="fas fa-chart-pie"></i> <strong>31%</strong> superficie planetaria</div>
+            <div><i class="fas fa-bug"></i> <strong>>80%</strong> especies terrestres</div>
+            <div><i class="fas fa-seedling"></i> <strong>Biomasa elevada</strong> y microclimas únicos</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Características Principales -->
+      <section id="caracteristicas">
+        <h2 class="section-title">✨ Características esenciales</h2>
+        <div class="features-wrapper">
+          <div class="feature-card" data-animate>
+            <i class="fas fa-layer-group"></i>
+            <h3>Estratificación vertical</h3>
+            <p>Dosel superior, sotobosque denso y suelo con materia orgánica. Capas que albergan microclimas únicos.</p>
+          </div>
+          <div class="feature-card" data-animate>
+            <i class="fas fa-dragon"></i>
+            <h3>Biodiversidad excepcional</h3>
+            <p>Hogar del 80% de anfibios, aves y mamíferos; millones de especies aún por descubrir.</p>
+          </div>
+          <div class="feature-card" data-animate>
+            <i class="fas fa-charging-station"></i>
+            <h3>Biomasa elevada</h3>
+            <p>Acumulan enorme cantidad de carbono y materia orgánica por unidad de superficie.</p>
+          </div>
+          <div class="feature-card" data-animate>
+            <i class="fas fa-cloud-sun-rain"></i>
+            <h3>Creación de microclima</h3>
+            <p>Humedad y temperatura interna estable, regulando el ambiente regional y local.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Tipos de bosque: Tropical, Templado, Boreal (cards) -->
+      <section id="tipos">
+        <h2 class="section-title">🌲 Tipos de bosque según el clima</h2>
+        <div class="card-grid">
+          <!-- Bosque Tropical -->
+          <div class="forest-card" data-animate>
+            <img src="./img/bosqueTropical.jfif" alt="Bosque tropical exuberante" loading="lazy">
+            <span class="forest-badge"><i class="fas fa-temperature-high"></i> Cálido y húmedo</span>
+            <h3>🌴 Bosque Tropical</h3>
+            <ul class="info-list">
+              <li><i class="fas fa-thermometer-half"></i> <strong>Temperatura:</strong> 20°C – 25°C anuales, sin
+                estación fría.</li>
+              <li><i class="fas fa-cloud-rain"></i> <strong>Clima:</strong> Precipitaciones abundantes todo el año, alta
+                humedad.</li>
+              <li><i class="fas fa-dirt"></i> <strong>Suelo:</strong> Pobre en nutrientes, pese a vegetación exuberante
+                (descomposición rápida).</li>
+              <li><i class="fas fa-leaf"></i> <strong>Flora:</strong> Árboles de hoja ancha perenne (caoba, ceiba),
+                orquídeas, lianas, palmas.</li>
+              <li><i class="fas fa-paw"></i> <strong>Fauna:</strong> Jaguares, monos, perezosos, tucanes, infinidad de
+                insectos.</li>
+              <li><i class="fas fa-map-marker-alt"></i> <strong>Ubicación:</strong> Amazonas, Congo, Sudeste Asiático.
+              </li>
+            </ul>
+          </div>
+
+          <!-- Bosque Templado -->
+          <div class="forest-card" data-animate>
+            <img src="./img/BosqueTemplado.webp" alt="Bosque templado otoñal" loading="lazy">
+            <span class="forest-badge"><i class="fas fa-leaf-maple"></i> 4 estaciones</span>
+            <h3>🍂 Bosque Templado</h3>
+            <ul class="info-list">
+              <li><i class="fas fa-thermometer-half"></i> <strong>Temperatura:</strong> -30°C a 30°C (amplitud térmica);
+                media 10-12°C.</li>
+              <li><i class="fas fa-cloud-sun"></i> <strong>Clima:</strong> Estaciones marcadas, precipitaciones
+                moderadas.</li>
+              <li><i class="fas fa-dirt"></i> <strong>Suelo:</strong> Fértil, rico en humus por descomposición lenta de
+                hojarasca.</li>
+              <li><i class="fas fa-tree"></i> <strong>Flora:</strong> Robles, hayas, nogales; coníferas como abetos.
+              </li>
+              <li><i class="fas fa-paw"></i> <strong>Fauna:</strong> Ciervos, lobos, linces, osos pardos/negros, aves
+                variadas.</li>
+              <li><i class="fas fa-map-marker-alt"></i> <strong>Ubicación:</strong> Norteamérica, Europa, Asia oriental.
+              </li>
+            </ul>
+          </div>
+
+          <!-- Bosque Boreal (Taiga) -->
+          <div class="forest-card" data-animate>
+            <img src="./img/BosqueBoreal.jfif" alt="Bosque boreal nevado" loading="lazy">
+            <span class="forest-badge"><i class="fas fa-snowflake"></i> Subpolar / frío</span>
+            <h3>❄️ Bosque Boreal (Taiga)</h3>
+            <ul class="info-list">
+              <li><i class="fas fa-thermometer-half"></i> <strong>Temperatura:</strong> Media anual < 0°C, inviernos
+                  largos y gélidos.</li>
+              <li><i class="fas fa-cloud-snow"></i> <strong>Clima:</strong> Frío extremo, nieve abundante, verano breve.
+              </li>
+              <li><i class="fas fa-dirt"></i> <strong>Suelo:</strong> Poco fértil, ácido por acumulación de agujas de
+                coníferas.</li>
+              <li><i class="fas fa-leaf"></i> <strong>Flora:</strong> Coníferas perennifolias: pinos, abetos, piceas,
+                cedros.</li>
+              <li><i class="fas fa-paw"></i> <strong>Fauna:</strong> Alces, caribúes, lobos, osos pardos, linces, aves
+                migratorias.</li>
+              <li><i class="fas fa-map-marker-alt"></i> <strong>Ubicación:</strong> Rusia, Canadá, Alaska, Escandinavia.
+              </li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- Ubicación y distribución global -->
+      <section>
+        <h2 class="section-title">📍 Distribución mundial</h2>
+        <div class="location-info">
+          <div><i class="fas fa-chart-simple" style="font-size: 2rem; color: #1f4f2b;"></i> <strong>Más del 50% de los
+              bosques</strong> se concentran en 5 países:</div>
+          <div class="countries-list">
+            <span>🇷🇺 Rusia</span><span>🇧🇷 Brasil</span><span>🇨🇦 Canadá</span><span>🇺🇸 Estados
+              Unidos</span><span>🇨🇳 China</span>
+          </div>
+        </div>
+        <div
+          style="margin-top: 1.2rem; display: flex; flex-wrap: wrap; gap: 1rem; justify-content: space-between; background: #fff3e0; border-radius: 1.5rem; padding: 1.4rem;">
+          <div><i class="fas fa-globe-americas"></i> <strong>Tropical:</strong> Cinturón ecuatorial (Amazonas, Congo, SE
+            Asiático)</div>
+          <div><i class="fas fa-globe-europe"></i> <strong>Templado:</strong> Latitudes medias (Europa, Este de Asia,
+            EE.UU.)</div>
+          <div><i class="fas fa-globe"></i> <strong>Boreal:</strong> Cinturón circumpolar norte (Rusia, Canadá,
+            Escandinavia)</div>
+        </div>
+      </section>
+
+      <!-- Importancia del bosque -->
+      <section id="importancia">
+        <h2 class="section-title">💚 Importancia crítica de los bosques</h2>
+        <div class="importance-grid">
+          <div class="importance-card" data-animate>
+            <i class="fas fa-cloud-sun"></i>
+            <div>
+              <h4>Regulación climática</h4>
+              <p>Sumideros de carbono, absorben CO₂ mitigando el cambio climático.</p>
+            </div>
+          </div>
+          <div class="importance-card" data-animate>
+            <i class="fas fa-wind"></i>
+            <div>
+              <h4>Producción de oxígeno</h4>
+              <p>Fotosíntesis masiva, generan el aire que respiramos.</p>
+            </div>
+          </div>
+          <div class="importance-card" data-animate>
+            <i class="fas fa-water"></i>
+            <div>
+              <h4>Conservación del suelo y agua</h4>
+              <p>Raíces evitan erosión, filtran agua y recargan acuíferos.</p>
+            </div>
+          </div>
+          <div class="importance-card" data-animate>
+            <i class="fas fa-feather-alt"></i>
+            <div>
+              <h4>Hogar de la biodiversidad</h4>
+              <p>70% de biodiversidad terrestre mundial, refugio de millones de especies.</p>
+            </div>
+          </div>
+          <div class="importance-card" data-animate>
+            <i class="fas fa-basket-shopping"></i>
+            <div>
+              <h4>Recursos y sustento</h4>
+              <p>Madera, alimentos, medicinas; medios de vida para ~1.000 millones de personas.</p>
+            </div>
+          </div>
+          <div class="importance-card" data-animate>
+            <i class="fas fa-seedling"></i>
+            <div>
+              <h4>Estratificación y microclimas</h4>
+              <p>Generan condiciones únicas que protegen ecosistemas delicados.</p>
+            </div>
+          </div>
+        </div>
+        <div style="background: #d9e6cf; border-radius: 1.5rem; margin-top: 2rem; padding: 1.5rem; text-align: center;">
+          <i class="fas fa-quote-left" style="font-size: 2rem; opacity: 0.6;"></i>
+          <p style="font-style: italic; max-width: 700px; margin: 0 auto;">"Los bosques son los pulmones de nuestra
+            tierra, purificando el aire y dando energía pura a nuestros pueblos."</p>
+          <p style="margin-top: 0.5rem;">🌎 Protegerlos es garantizar el futuro del planeta.</p>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <footer>
+    <p style="font-size: 1rem; margin-top: 1rem;">Centro Experimental Florentino Ameghino</p>
+    <p style="margin-top: 0.5rem;">Docente: Claudia Patricia Santillán</p>
+    <p style="margin-top: 0.5rem;">Ciencias Naturales</p>
+  </footer>
+
+  <button class="scroll-top" id="scrollTopBtn" aria-label="Volver arriba"><i class="fas fa-arrow-up"></i></button>
+
+  <script>
+    // INTERSECTION OBSERVER - animaciones al hacer scroll (fade-up moderno)
+    const animatedElements = document.querySelectorAll('[data-animate]');
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          // despreocupamos después de animar
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.15, rootMargin: "0px 0px -30px 0px" });
+
+    animatedElements.forEach(el => observer.observe(el));
+
+    // Forzar visible en elementos que pudieran estar ya visibles (opcional)
+    // También agregar clase visible a los que están visibles antes del scroll.
+    // Función extra: revisar visibilidad inicial
+    const checkInitialVisibility = () => {
+      animatedElements.forEach(el => {
+        const rect = el.getBoundingClientRect();
+        const windowHeight = window.innerHeight;
+        if (rect.top < windowHeight - 100) {
+          el.classList.add('visible');
+          observer.unobserve(el);
+        }
+      });
+    };
+    window.addEventListener('load', checkInitialVisibility);
+    window.addEventListener('resize', checkInitialVisibility);
+
+    // Scroll top button (JS simple)
+    const scrollBtn = document.getElementById('scrollTopBtn');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 400) {
+        scrollBtn.classList.add('show');
+      } else {
+        scrollBtn.classList.remove('show');
+      }
+    });
+
+    scrollBtn.addEventListener('click', () => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+
+    // Smooth scroll para enlaces internos del navbar
+    document.querySelectorAll('.navbar a').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const targetId = this.getAttribute('href').substring(1);
+        const targetElement = document.getElementById(targetId);
+        if (targetElement) {
+          targetElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        } else if (targetId === 'inicio') {
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+      });
+    });
+
+    // Agregar un pequeño efecto sutil en tarjetas forestales - animación hover plus
+    const forestCards = document.querySelectorAll('.forest-card');
+    forestCards.forEach(card => {
+      card.addEventListener('mouseenter', () => {
+        card.style.transition = 'all 0.2s ease';
+      });
+    });
+  </script>
+
+  <!-- Garantizar que todas las tarjetas de características también estén con data-animate ya -->
+  <style>
+    /* Estilos iniciales para elementos con data-animate */
+    [data-animate] {
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity 0.6s cubic-bezier(0.2, 0.9, 0.4, 1.1), transform 0.5s ease;
+    }
+
+    [data-animate].visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .forest-card,
+    .feature-card,
+    .importance-card {
+      will-change: transform;
+    }
+
+    /* imágenes adaptativas */
+    img {
+      max-width: 100%;
+      height: auto;
+      display: block;
+    }
+  </style>
+</body>
+
+</html>
